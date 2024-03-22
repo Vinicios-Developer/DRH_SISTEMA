@@ -8,7 +8,7 @@
             <div class="card border border-light-subtle rounded-3 shadow-sm">
               <div class="card-body p-3 p-md-4 p-xl-5">
                 <div class="text-center mb-3">
-                  <a href="#!">
+                  <a href="#">
                     <img src="{{ url_for('static', filename='img/cerebro.png') }}" alt="BootstrapBrain Logo" width="100" height="100">
                   </a>
                 </div>
@@ -46,6 +46,91 @@
                             </div>
                             {% else %}
                             {{ form_criar_usuario.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-3">
+                        <div class="form-group">
+                            {{ form_criar_usuario.posto_grad_id.label(class="form-control-label") }}
+                            {% if form_criar_usuario.posto_grad_id.errors %}
+                            {{ form_criar_usuario.posto_grad_id(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for erro in form_criar_usuario.posto_grad_id.erros %}
+                                {{erro}}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form_criar_usuario.posto_grad_id(class="form-control") }}
+                            {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-3">
+                        <div class="form-group">
+                            {{ form_criar_usuario.quadro_id.label(class="form-control-label") }}
+                            {% if form_criar_usuario.quadro_id.errors %}
+                            {{ form_criar_usuario.quadro_id(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for erro in form_criar_usuario.quadro_id.erros %}
+                                {{erro}}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form_criar_usuario.quadro_id(class="form-control") }}
+                            {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-3">
+                        <div class="form-group">
+                            {{ form_criar_usuario.nome_completo.label(class="form-control-label") }}
+                            {% if form_criar_usuario.nome_completo.errors %}
+                            {{ form_criar_usuario.nome_completo(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for erro in form_criar_usuario.nome_completo.erros %}
+                                {{erro}}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form_criar_usuario.nome_completo(class="form-control") }}
+                            {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-3">
+                        <div class="form-group">
+                            {{ form_criar_usuario.nome_guerra.label(class="form-control-label") }}
+                            {% if form_criar_usuario.nome_guerra.errors %}
+                            {{ form_criar_usuario.nome_guerra(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for erro in form_criar_usuario.nome_guerra.erros %}
+                                {{erro}}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form_criar_usuario.nome_guerra(class="form-control") }}
+                            {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-3">
+                        <div class="form-group">
+                            {{ form_criar_usuario.obm_id.label(class="form-control-label") }}
+                            {% if form_criar_usuario.obm_id.errors %}
+                            {{ form_criar_usuario.obm_id(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for erro in form_criar_usuario.obm_id.erros %}
+                                {{erro}}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form_criar_usuario.obm_id(class="form-control") }}
                             {% endif %}
                         </div>
                       </div>

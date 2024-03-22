@@ -12,7 +12,7 @@ class FormCriarUsuario(FlaskForm):
     quadro_id = SelectField('Quadro', choices=[])
     nome_completo = StringField('Nome Completo', validators=[DataRequired()])
     nome_guerra = StringField('Nome Guerra')
-    setor_id = SelectField('Setor', choices=[])
+    obm_id = SelectField('Obm', choices=[])
     username = StringField('Nome de usuário')
     email = StringField('E-mail', validators=[DataRequired(), Email()])
     senha = PasswordField('Senha', validators=[DataRequired(), Length(6, 20)])

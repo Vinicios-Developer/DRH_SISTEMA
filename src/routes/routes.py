@@ -2,14 +2,15 @@ from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from cerebro.src import app, bcrypt, database
 from cerebro.src.forms.forms import FormLogin, FormCriarUsuario
-from cerebro.src.models.models import Usuario, Posto_grad, Quadro, Setor, Obm
+from cerebro.src.models.models import Usuario, Posto_grad, Quadro, Obm
+from cerebro.src.controller.authorization import authorize_obm
 
 
 @app.route("/", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         flash('Você já está logado.', 'alert-info')
-        return redirect(url_for('login'))
+        return redirect(url_for('home'))
 
     form_login = FormLogin()
 
@@ -21,8 +22,8 @@ def login():
             flash('Login feito com sucesso!', 'alert-success')
 
             if email.username == 'Vinicios':
-                return redirect(request.args.get('next', url_for('usuarios')))
-            return redirect(url_for('login'))
+                return redirect(request.args.get('next', url_for('home')))
+            return redirect(url_for('home'))
         else:
             flash('Falha no Login, e-mail ou senha incorretos.', 'alert-danger')
 
@@ -30,6 +31,8 @@ def login():
 
 
 @app.route('/criar-usuario', methods=['GET', 'POST'])
+@login_required
+@authorize_obm(4)
 def criarUsuario():
     form_criar_usuario = FormCriarUsuario()
 
@@ -37,8 +40,9 @@ def criarUsuario():
         (posto.id, posto.sigla) for posto in Posto_grad.query.all()]
     form_criar_usuario.quadro_id.choices = [
         (quadro.id, quadro.quadro) for quadro in Quadro.query.all()]
-    form_criar_usuario.setor_id.choices = [
-        (setor.id, f"{setor.setor}/{setor.obm_setor.sigla}") for setor in Setor.query.join(Obm).all()
+
+    form_criar_usuario.obm_id.choices = [
+        (obm.id, obm.sigla) for obm in Obm.query.all()
     ]
 
     if form_criar_usuario.validate_on_submit():
@@ -47,7 +51,7 @@ def criarUsuario():
                          quadro_id=form_criar_usuario.quadro_id.data,
                          nome_completo=form_criar_usuario.nome_completo.data,
                          nome_guerra=form_criar_usuario.nome_guerra.data,
-                         setor_id=form_criar_usuario.setor_id.data,
+                         obm_id=form_criar_usuario.obm_id.data,
                          username=form_criar_usuario.username.data,
                          email=form_criar_usuario.email.data,
                          senha=senha_cript)
@@ -57,3 +61,7 @@ def criarUsuario():
         return redirect(url_for("login"))
     return render_template('criarUsuario.html', form_criar_usuario=form_criar_usuario)
 
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
