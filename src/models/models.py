@@ -5,7 +5,8 @@ from datetime import datetime
 
 class Legislacao(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    user_id = database.Column(database.Integer, database.ForeignKey('usuario.id'))
+    user_id = database.Column(
+        database.Integer, database.ForeignKey('usuario.id'))
 
 
 class Anexo_Legislacao(database.Model):
@@ -33,7 +34,8 @@ class Quadro(database.Model):
 class Obm(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     sigla = database.Column(database.String(15), nullable=False)
-    usuario = database.relationship('Usuario', backref='obm_usuarios', lazy=True)
+    usuario = database.relationship(
+        'Usuario', backref='obm_usuarios', lazy=True)
 
 
 @login_manager.user_loader
@@ -69,7 +71,8 @@ class Prioridade(database.Model):
 
 class Chamado(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
+    id_usuario = database.Column(
+        database.Integer, database.ForeignKey('usuario.id'), nullable=False)
     titulo_chamado = database.Column(database.String, nullable=False)
     descricao_chamado = database.Column(database.Text, nullable=False)
     id_tipo_chamado = database.Column(
@@ -78,4 +81,5 @@ class Chamado(database.Model):
         database.Integer, database.ForeignKey('prioridade.id'), nullable=False)
     obm_id = database.Column(
         database.Integer, database.ForeignKey('obm.id'), nullable=False)
-    data_emissao = database.Column(database.DateTime, nullable=False, default=datetime.now)
+    data_emissao = database.Column(
+        database.DateTime, nullable=False, default=datetime.now)
